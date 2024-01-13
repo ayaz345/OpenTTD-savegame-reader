@@ -37,7 +37,13 @@ class Savegame(PassthroughReader):
             key_length, index_size = reader.gamma()
             key = reader.read(key_length)
             field_type = FieldType(type & 0xf)
-            fields.append((field_type, True if type & FIELD_TYPE_HAS_LENGTH_FIELD else False, key.decode()))
+            fields.append(
+                (
+                    field_type,
+                    bool(type & FIELD_TYPE_HAS_LENGTH_FIELD),
+                    key.decode(),
+                )
+            )
 
             size += key_length + index_size
 
@@ -120,7 +126,7 @@ class Savegame(PassthroughReader):
                     size = reader.gamma()[0] - 1
                     if size < 0:
                         break
-                    if type == 2 or type == 4:
+                    if type in [2, 4]:
                         index, index_size = reader.gamma()
                         size -= index_size
                     else:
