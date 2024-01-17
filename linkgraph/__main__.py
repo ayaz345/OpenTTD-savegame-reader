@@ -8,6 +8,7 @@ On the root is a list of cargos. For each cargo there is [from][to] containing
 all the edges. "from" and "to" are stationIDs.
 """
 
+
 import json
 import sys
 
@@ -18,12 +19,10 @@ result = defaultdict(lambda: defaultdict(lambda: dict()))
 data = json.load(sys.stdin)
 
 for lgrp in data["chunks"]["LGRP"].values():
-    i = -1
     nodes = {}
     edges = {}
 
-    for node in lgrp["nodes"]:
-        i += 1
+    for i, node in enumerate(lgrp["nodes"]):
         nodes[i] = node["station"]
 
         to = i

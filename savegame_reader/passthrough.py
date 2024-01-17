@@ -27,7 +27,7 @@ class PassthroughReader:
 
     def read_string(self, data):
         length, data = self.read_gamma(data)
-        return data[0:length].tobytes().decode(), data[length:]
+        return data[:length].tobytes().decode(), data[length:]
 
     def read_int8(self, data):
         try:

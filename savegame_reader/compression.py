@@ -28,7 +28,7 @@ class ZLibFile:
                 break
             self.uncompressed += self.decompressor.decompress(new_data)
 
-        data = self.uncompressed[0:amount]
+        data = self.uncompressed[:amount]
         self.uncompressed = self.uncompressed[amount:]
         return data
 
